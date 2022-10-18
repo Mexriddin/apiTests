@@ -52,4 +52,3 @@ class TestUserAuth(BaseCase):
             expected_value=0,
             error_message=f"User is authorized with condition {condition}"
         )
-
