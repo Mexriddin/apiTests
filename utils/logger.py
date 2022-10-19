@@ -4,7 +4,7 @@ from requests import Response
 
 
 class Logger:
-    file_name = "logs/log_" + str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
+    file_name = f"logs/log_" + str(datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".log"
 
     @classmethod
     def _write_log_to_file(cls, data: str):
@@ -23,7 +23,7 @@ class Logger:
         data_to_add += f"Request headers: {headers}\n"
         data_to_add += f"Request cookies: {cookies}\n"
         data_to_add += "\n"
-        cls._write_log_to_file(data=data_to_add)
+        cls._write_log_to_file(data_to_add)
 
     @classmethod
     def add_response(cls, response: Response):
