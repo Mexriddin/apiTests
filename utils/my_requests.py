@@ -1,23 +1,28 @@
 import requests
+import allure
 from utils.logger import Logger
 
 
 class MyRequests:
     @staticmethod
     def post(path: str, data: dict = None, headers: dict = None, cookies: dict = None):
-        return MyRequests._send(path, "POST", data, headers, cookies)
+        with allure.step(f"POST request to URL '{path}'"):
+            return MyRequests._send(path, "POST", data, headers, cookies)
 
     @staticmethod
     def get(path: str, data: dict = None, headers: dict = None, cookies: dict = None):
-        return MyRequests._send(path, "GET", data, headers, cookies)
+        with allure.step(f"GET request to URL '{path}'"):
+            return MyRequests._send(path, "GET", data, headers, cookies)
 
     @staticmethod
     def put(path: str, data: dict = None, headers: dict = None, cookies: dict = None):
-        return MyRequests._send(path, "PUT", data, headers, cookies)
+        with allure.step(f"PUT request to URL '{path}'"):
+            return MyRequests._send(path, "PUT", data, headers, cookies)
 
     @staticmethod
     def delete(path: str, data: dict = None, headers: dict = None, cookies: dict = None):
-        return MyRequests._send(path, "DELETE", data, headers, cookies)
+        with allure.step(f"DELETE request to URL '{path}'"):
+            return MyRequests._send(path, "DELETE", data, headers, cookies)
 
     @staticmethod
     def _send(path: str, method: str, data: dict, headers: dict, cookies: dict):

@@ -5,6 +5,7 @@ __pycache__/
 venv/
 .idea
 logs/*
+test_result/
 
 # C extensions
 *.so
