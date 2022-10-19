@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 venv/
 .idea
-
+logs/*
 
 # C extensions
 *.so
