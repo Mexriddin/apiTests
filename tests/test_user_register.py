@@ -69,4 +69,4 @@ class TestUserRegister(BaseCase):
         response = MyRequests.post(path="/user/", data=data)
         Assertions.assert_code_status(response=response, expected_status_code=400)
         assert response.content.decode("utf-8") == f"{error_message}", \
-            f"Unexpected response content {response.content} "
+            f"Unexpected response content {response.content}"

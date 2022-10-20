@@ -41,7 +41,7 @@ class TestUserGet(BaseCase):
 
     @allure.title("Test get other user details with authorize")
     @allure.description("This test checks status and fields other user with authorize")
-    def test_get_other_user_details_auth_as_same_user(self):
+    def test_get_user_details_auth_as_other_user(self):
         data = {
             'email': 'vinkotov@example.com',
             'password': '1234'
