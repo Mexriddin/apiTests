@@ -17,13 +17,13 @@ class TestUserEdit(BaseCase):
         Assertions.assert_code_status(response=response, expected_status_code=200)
         Assertions.assert_json_has_key(response=response, name="id")
 
-        self.email = register_data["email"]
-        self.password = register_data["password"]
+        email = register_data["email"]
+        password = register_data["password"]
         self.user_id = self.get_json_value(response=response, name="id")
 
         self.login_data = {
-            "email": self.email,
-            "password": self.password
+            "email": email,
+            "password": password
         }
 
     def teardown(self):
