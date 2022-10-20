@@ -5,7 +5,7 @@ from utils.my_requests import MyRequests
 import allure
 
 
-@allure.epic("User edit cases")
+@allure.epic("User delete cases")
 class TestUserDelete(BaseCase):
     @allure.title("Positive test delete created user")
     @allure.description("This test successfully delete created user by valid fields")
