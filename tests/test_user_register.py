@@ -26,8 +26,8 @@ class TestUserRegister(BaseCase):
         data = self.prepare_registration_data(email=email)
         response = MyRequests.post(path="/user/", data=data)
         Assertions.assert_code_status(response=response, expected_status_code=400)
-        assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", \
-            f"Unexpected response content {response.content} "
+        Assertions.assert_content(response=response, expected_content=f"Users with email '{email}' already exists",
+                                  error_message=f"Unexpected response content {response.content}")
 
     @allure.title("Negative test registration user with invalid email")
     @allure.description("This test checks registration status and content with sending email without letter '@'")
@@ -37,8 +37,8 @@ class TestUserRegister(BaseCase):
         data = self.prepare_registration_data(email=invalid_email)
         response = MyRequests.post(path="/user/", data=data)
         Assertions.assert_code_status(response=response, expected_status_code=400)
-        assert response.content.decode("utf-8") == "Invalid email format", \
-            f"Unexpected response content {response.content} "
+        Assertions.assert_content(response=response, expected_content="Invalid email format",
+                                  error_message=f"Unexpected response content {response.content}")
 
     @allure.title("Negative test registration user without specifying one of the fields")
     @allure.description("This test checks registration status and content with sending without "
@@ -54,8 +54,9 @@ class TestUserRegister(BaseCase):
         data = self.prepare_invalid_registration_data(without_field)
         response = MyRequests.post(path="/user/", data=data)
         Assertions.assert_code_status(response=response, expected_status_code=400)
-        assert response.content.decode("utf-8") == f"The following required params are missed: {without_field}", \
-            f"Unexpected response content {response.content} "
+        Assertions.assert_content(response=response,
+                                  expected_content=f"The following required params are missed: {without_field}",
+                                  error_message=f"Unexpected response content {response.content}")
 
     @allure.title("Negative test registration user with invalid username")
     @allure.description("This test checks registration status and content with sending invalid username")
@@ -68,5 +69,5 @@ class TestUserRegister(BaseCase):
         data = self.prepare_invalid_username_data(username=username)
         response = MyRequests.post(path="/user/", data=data)
         Assertions.assert_code_status(response=response, expected_status_code=400)
-        assert response.content.decode("utf-8") == f"{error_message}", \
-            f"Unexpected response content {response.content}"
+        Assertions.assert_content(response=response, expected_content=f"{error_message}",
+                                  error_message=f"Unexpected response content {response.content}")

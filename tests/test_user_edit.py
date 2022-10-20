@@ -80,8 +80,8 @@ class TestUserEdit(BaseCase):
             data={"lastName": last_name}
         )
         Assertions.assert_code_status(response=response, expected_status_code=400)
-        assert response.content.decode("utf-8") == "Auth token not supplied", \
-            f"Unexpected response content {response.content} "
+        Assertions.assert_content(response=response, expected_content="Auth token not supplied",
+                                  error_message=f"Unexpected response content {response.content}")
 
     @allure.title("Negative test edit created user while being authorized by another user")
     @allure.description("This test checks status code and content while being authorized by another user")
@@ -132,8 +132,8 @@ class TestUserEdit(BaseCase):
             data={"email": email}
         )
         Assertions.assert_code_status(response=response2, expected_status_code=400)
-        assert response2.content.decode("utf-8") == "Invalid email format", \
-            f"Unexpected response content {response2.content}"
+        Assertions.assert_content(response=response2, expected_content="Invalid email format",
+                                  error_message=f"Unexpected response content {response2.content}")
 
     @allure.title("Negative test edit created user 'firstName' being authorized by the same user")
     @allure.description("This test checks status code and error message being authorized "

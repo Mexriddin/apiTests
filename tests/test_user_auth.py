@@ -39,7 +39,7 @@ class TestUserAuth(BaseCase):
             error_message="User id from auth method is not equal to user_id from check method"
         )
 
-    @allure.title("Negative test authorization")
+    @allure.title("Negative test authorization user")
     @allure.description("This test checks authorization status without sending auth cookie or token")
     @pytest.mark.parametrize('condition', exclude_params)
     @pytest.mark.authorization
