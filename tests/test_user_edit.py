@@ -79,6 +79,36 @@ class TestUserEdit(BaseCase):
         Assertions.assert_content(response=response, expected_content="Auth token not supplied",
                                   error_message=f"Unexpected response content {response.content}")
 
+    @allure.title("Negative test edit created user while being authorized by another user")
+    @allure.description("This test checks status code and content while being authorized by another user")
+    @pytest.mark.negative
+    @pytest.mark.skip
+    def test_edit_other_user_auth_as_same_user(self):
+        # REGISTER
+        editor_register_data = self.prepare_registration_data()
+        response = MyRequests.post(path="/user/", data=editor_register_data)
+        Assertions.assert_code_status(response=response, expected_status_code=200)
+        Assertions.assert_json_has_key(response=response, name="id")
+        edit_user_id = self.get_json_value(response=response, name="id")
+
+        # LOGIN
+        response1 = MyRequests.post(path="/user/login", data=self.login_data)
+        auth_sid = self.get_cookie(response=response1, cookie_name="auth_sid")
+        token = self.get_header(response=response1, header_name="x-csrf-token")
+
+        # EDIT
+        username = "qwerty"
+        response2 = MyRequests.put(
+            path=f"/user/{edit_user_id}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid},
+            data={"username": username}
+
+        )
+        Assertions.assert_code_status(response=response2, expected_status_code=200)
+        # Assertions.assert_content(response=response2, expected_content="Auth token not supplied",
+        #                           error_message=f"Unexpected response content {response.content}")
+
     @allure.title("Negative test edit created user 'email' being authorized by the same user")
     @allure.description("This test checks status code and content being authorized "
                         "by the same user with sending email without letter '@'")
