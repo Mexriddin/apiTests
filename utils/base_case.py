@@ -35,7 +35,7 @@ class BaseCase:
     def prepare_registration_data(self, email=None):
         if email is None:
             base_part = "learnqa"
-            domain = "examole.com"
+            domain = "example.com"
             random_part = datetime.now().strftime("%m%d%Y%H%M%S")
             email = f"{base_part}{random_part}@{domain}"
         data_ex = self.data.copy()
