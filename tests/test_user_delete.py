@@ -76,7 +76,6 @@ class TestUserDelete(BaseCase):
     @allure.title("Negative test delete created user while being authorized by another user")
     @allure.description("This test checks status code and content while being authorized by another user")
     @pytest.mark.negative
-    @pytest.mark.skip
     def test_delete_other_user_auth_as_same_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -92,14 +91,13 @@ class TestUserDelete(BaseCase):
             "email": "vinkotov@example.com",
             "password": "1234"
         }
-        response1 = MyRequests.post(path="/user/login", data=login_data)
-        auth_sid = self.get_cookie(response=response1, cookie_name="auth_sid")
-        token = self.get_header(response=response1, header_name="x-csrf-token")
+        response2 = MyRequests.post(path="/user/login", data=login_data)
+        auth_sid = self.get_cookie(response=response2, cookie_name="auth_sid")
+        token = self.get_header(response=response2, header_name="x-csrf-token")
         # DELETE
-        response2 = MyRequests.delete(
+        response3 = MyRequests.delete(
             path=f"/user/{user_id}",
             headers={"x-csrf-token": token},
             cookies={"auth_sid": auth_sid}
         )
-        print(response2.content)
-        Assertions.assert_code_status(response=response2, expected_status_code=400)
+        Assertions.assert_code_status(response=response3, expected_status_code=400)

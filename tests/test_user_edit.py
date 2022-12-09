@@ -82,7 +82,6 @@ class TestUserEdit(BaseCase):
     @allure.title("Negative test edit created user while being authorized by another user")
     @allure.description("This test checks status code and content while being authorized by another user")
     @pytest.mark.negative
-    @pytest.mark.skip
     def test_edit_other_user_auth_as_same_user(self):
         # REGISTER
         editor_register_data = self.prepare_registration_data()
